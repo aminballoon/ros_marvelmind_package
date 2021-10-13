@@ -13,7 +13,7 @@ And then build with
 ```
 colcon build --symlink-install
 ```
-This package was developed on and tested on ROS2 Eloquent running on Ubuntu 18.04.   
+This package was developed on and tested on ROS2 Foxy running on Ubuntu 20.04.   
 
 ## Prerequisites
 1. Ensure user is added to `dialout` group to get access to serial port. (needs a reboot)    
