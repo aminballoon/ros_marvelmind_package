@@ -1,5 +1,5 @@
-#ifndef MARVELMIND_NAV__MARVELMIND_NAVIGATION_HPP_
-#define MARVELMIND_NAV__MARVELMIND_NAVIGATION_HPP_
+#ifndef MARVELMIND_NAVIGATION_H
+#define MARVELMIND_NAVIGATION_H
 
 #include <fcntl.h>
 #include <iostream>
@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <chrono>
-#include <memory>
-#include <string>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
@@ -30,6 +28,7 @@
 extern "C"
 {
 #include "marvelmind_nav/marvelmind_hedge.h"
+#include "marvelmind_nav/marvelmind_api.h"
 }
 
 
@@ -50,11 +49,9 @@ extern "C"
 class MarvelmindNavigation : public rclcpp_lifecycle::LifecycleNode
 {
 public:
-  explicit MarvelmindNavigation(const std::string & node_name,int argc,
-                                char **argv, bool intra_process_comms = false)
-  : rclcpp_lifecycle::LifecycleNode(node_name,
-                                    rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms)),
-      argc_(argc), argv_(argv)
+  explicit MarvelmindNavigation(const std::string & node_name,int argc, char **argv, bool intra_process_comms=false)
+  : rclcpp_lifecycle::LifecycleNode(node_name, rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms)),
+      argc_(argc),argv_(argv)
 {}
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn on_activate(const rclcpp_lifecycle::State &);
   rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn on_deactivate(const rclcpp_lifecycle::State &);
@@ -125,9 +122,11 @@ private:
   void setMessageDefaults();
 
   void main_loop();
+  void marvelmindAPILoad();
+  void marvelmindAPIFree();
 
 };
 
 
 
-#endif  // MARVELMIND_NAV__MARVELMIND_NAVIGATION_HPP_
+#endif // MARVELMIND_NAVIGATION_H

@@ -1,31 +1,4 @@
-/*
-Copyright (c) 2020, Marvelmind Robotics
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
- * Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-DAMAGE.
-*/
-
 #include "marvelmind_nav/marvelmind_navigation.hpp"
-#include <memory>
 
 uint32_t MarvelmindNavigation::hedge_timestamp_prev = 0;
 static sem_t *sem;
@@ -556,6 +529,7 @@ void MarvelmindNavigation::main_loop()
         if(are_publishers_active_)
             marvelmind_waypoint_publisher_->publish(marvelmind_waypoint_msg);
     }
+
 }
 
 
@@ -564,19 +538,20 @@ int main(int argc, char * argv[])
     // force flush of the stdout buffer.
     // this ensures a correct sync of all prints
     // even when executed simultaneously within the launch file.
-
-
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
-
+    
     rclcpp::init(argc, argv);
 
     rclcpp::executors::SingleThreadedExecutor exe;
 
     std::shared_ptr<MarvelmindNavigation> lc_node = std::make_shared<MarvelmindNavigation>("lc_marvel2", argc, argv);
-
+ 
     exe.add_node(lc_node->get_node_base_interface());
 
     exe.spin();
+
+    
+    
 
     rclcpp::shutdown();
 
