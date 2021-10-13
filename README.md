@@ -27,14 +27,18 @@ KERNEL==”ttyACM0”,GROUP=”dialout”,MODE=”666”
 ## Bringup
 
 Once you have ensured that a beacon or modem is connected to your PC, launch with:
-
-`ros2 launch marvelmind_nav marvel_driver_launch.py`   
-
+```
+ros2 launch marvelmind_nav marvel_driver_launch.py   
+```
 For read Beacon position and timestamp.
 To change the Port name, edit the launch file and replace it in [this line](https://github.com/ipa-kut/ros_marvelmind_package/blob/a032ac60ac72a85ef5d4dfa5bee3d10e265fd9d8/marvelmind_nav/launch/marvel_driver_launch.py#L28) in the launch file.
 
 When the Modem is connected to your PC, You can sleep and wake up all of the beacon in system with these commands. 
 Sleep all the beacon with 
-`ros2 launch marvelmind_nav sleep_beacon`   
+```
+ros2 launch marvelmind_nav sleep_beacon  
+```
 Wake all the beacon with 
-`ros2 launch marvelmind_nav wake_beacon`   
+```
+ros2 launch marvelmind_nav wake_beacon
+```
